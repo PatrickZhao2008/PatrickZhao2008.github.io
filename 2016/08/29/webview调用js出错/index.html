@@ -1,0 +1,616 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="webview,安卓开发,错误异常信息," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="异常信息：12345678910W/WebView(2088): java.lang.Throwable: A WebView method was called on thread &apos;JavaBridge&apos;. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 1) &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓webview调用js出错">
+<meta property="og:url" content="http://yoursite.com/2016/08/29/webview调用js出错/index.html">
+<meta property="og:site_name" content="程序员Patrick_Zhao">
+<meta property="og:description" content="异常信息：12345678910W/WebView(2088): java.lang.Throwable: A WebView method was called on thread &apos;JavaBridge&apos;. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 1) &amp;">
+<meta property="og:updated_time" content="2016-08-29T07:55:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安卓webview调用js出错">
+<meta name="twitter:description" content="异常信息：12345678910W/WebView(2088): java.lang.Throwable: A WebView method was called on thread &apos;JavaBridge&apos;. All WebView methods must be called on the same thread. (Expected Looper Looper (main, tid 1) &amp;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6219980248432248000,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/29/webview调用js出错/"/>
+
+  <title> 安卓webview调用js出错 | 程序员Patrick_Zhao </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7eef02482ad788ec5c9658901ec8e5b3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">程序员Patrick_Zhao</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                安卓webview调用js出错
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-29T15:13:40+08:00" content="2016-08-29">
+              2016-08-29
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/29/webview调用js出错/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/29/webview调用js出错/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="异常信息："><a href="#异常信息：" class="headerlink" title="异常信息："></a>异常信息：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">W/WebView(<span class="number">2088</span>): java.lang.Throwable: A WebView method was called on thread <span class="string">'JavaBridge'</span>. All WebView methods must be called on the same thread. (<span class="function">Expected Looper <span class="title">Looper</span> <span class="params">(main, tid <span class="number">1</span>)</span> </span>&#123;b3dbcb18&#125; <span class="function">called on <span class="title">Looper</span> <span class="params">(JavaBridge, tid <span class="number">120</span>)</span> </span>&#123;b44a1af8&#125;, <span class="function">FYI main Looper is <span class="title">Looper</span> <span class="params">(main, tid <span class="number">1</span>)</span> </span>&#123;b3dbcb18&#125;)</div><div class="line">W/WebView(<span class="number">2088</span>):     at android.webkit.WebView.checkThread(WebView.java:<span class="number">2063</span>)</div><div class="line">W/WebView(<span class="number">2088</span>):     at android.webkit.WebView.loadUrl(WebView.java:<span class="number">794</span>)</div><div class="line">W/WebView(<span class="number">2088</span>):     at com.ue.oa.activity.XFormActivity.alert(XFormActivity.java:<span class="number">180</span>)</div><div class="line">W/WebView(<span class="number">2088</span>):     at com.ue.oa.activity.XFormActivity$FormActions.save(XFormActivity.java:<span class="number">193</span>)</div><div class="line">W/WebView(<span class="number">2088</span>):     at com.android.org.chromium.base.SystemMessageHandler.nativeDoRunLoopOnce(Native Method)</div><div class="line">W/WebView(<span class="number">2088</span>):     at com.android.org.chromium.base.SystemMessageHandler.handleMessage(SystemMessageHandler.java:<span class="number">27</span>)</div><div class="line">W/WebView(<span class="number">2088</span>):     at android.os.Handler.dispatchMessage(Handler.java:<span class="number">102</span>)</div><div class="line">W/WebView(<span class="number">2088</span>):     at android.os.Looper.loop(Looper.java:<span class="number">136</span>)</div><div class="line">W/WebView(<span class="number">2088</span>):     at android.os.HandlerThread.run(HandlerThread.java:<span class="number">61</span>)</div></pre></td></tr></table></figure>
+<h2 id="错误原因："><a href="#错误原因：" class="headerlink" title="错误原因："></a>错误原因：</h2><blockquote>
+<p>JavaScript的方法是在后台执行的（即非UI线程）。也就是说我们需要在用户界面线程上调用所有的安卓视图相关的方法。看到这里应该知道该怎么处理了吧…</p>
+</blockquote>
+<h2 id="解决方法："><a href="#解决方法：" class="headerlink" title="解决方法："></a>解决方法：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">webview.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">	 <span class="meta">@Override</span></div><div class="line">	 <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">	    <span class="comment">//这里为你之前的代码</span></div><div class="line">	 &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webview/" rel="tag">#webview</a>
+          
+            <a href="/tags/安卓开发/" rel="tag">#安卓开发</a>
+          
+            <a href="/tags/错误异常信息/" rel="tag">#错误异常信息</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/22/安卓Application里面真的不可以放数据吗？/" rel="next" title="安卓Application里面真的不可以放数据吗？">
+                <i class="fa fa-chevron-left"></i> 安卓Application里面真的不可以放数据吗？
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/30/即时通讯类项目开发总结/" rel="prev" title="即时通讯类项目开发总结">
+                即时通讯类项目开发总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/29/webview调用js出错/"
+           data-title="安卓webview调用js出错" data-url="http://yoursite.com/2016/08/29/webview调用js出错/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ocalhyke7.bkt.clouddn.com/IMG_2037%2820161116-094615%29.jpg"
+               alt="Patrick_Zhao" />
+          <p class="site-author-name" itemprop="name">Patrick_Zhao</p>
+          <p class="site-description motion-element" itemprop="description">不卑不亢,不骄不躁,不气不馁</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常信息："><span class="nav-number">1.</span> <span class="nav-text">异常信息：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误原因："><span class="nav-number">2.</span> <span class="nav-text">错误原因：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法："><span class="nav-number">3.</span> <span class="nav-text">解决方法：</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick_Zhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"noteszhaoshuai123"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

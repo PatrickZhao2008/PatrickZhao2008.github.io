@@ -1,0 +1,752 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="安卓开发,音视频直播," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="原创声明：本文属于原创总结，部分文字摘自网络，已标署名，转载请附上转载链接。http://notes.zhaoshuai123.com
+
+目前来看，原生安卓开发即将走到了尽头，除了视频直播类和即时通讯类等App之外，基本市面上其他类型的App都可以使用纯web或者HyBrid的方式去替代了，比如Facebook出的React Native.而最近的微信小程序更是将原生安卓开发逼向死路，毕竟微信小程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频直播类App研究总结">
+<meta property="og:url" content="http://yoursite.com/2016/10/17/视频直播类App研究总结/index.html">
+<meta property="og:site_name" content="程序员Patrick_Zhao">
+<meta property="og:description" content="原创声明：本文属于原创总结，部分文字摘自网络，已标署名，转载请附上转载链接。http://notes.zhaoshuai123.com
+
+目前来看，原生安卓开发即将走到了尽头，除了视频直播类和即时通讯类等App之外，基本市面上其他类型的App都可以使用纯web或者HyBrid的方式去替代了，比如Facebook出的React Native.而最近的微信小程序更是将原生安卓开发逼向死路，毕竟微信小程">
+<meta property="og:image" content="http://ocalhyke7.bkt.clouddn.com/Video-broadcast-technology.jpg">
+<meta property="og:image" content="http://ocalhyke7.bkt.clouddn.com/f3e6cde80a7b16bf12f4092a8d64d269_b.png">
+<meta property="og:image" content="http://ocalhyke7.bkt.clouddn.com/%E7%9B%B4%E6%92%AD%E6%95%B4%E4%BD%93%E6%B5%81.png">
+<meta property="og:image" content="http://ocalhyke7.bkt.clouddn.com/caiji.jpg">
+<meta property="og:image" content="http://ocalhyke7.bkt.clouddn.com/qianchuli.png">
+<meta property="og:image" content="http://ocalhyke7.bkt.clouddn.com/311249-6cd0b2567a15818d.jpg">
+<meta property="og:image" content="http://ocalhyke7.bkt.clouddn.com/311249-423cc0c0fe1976db.jpg">
+<meta property="og:updated_time" content="2016-11-15T08:09:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="视频直播类App研究总结">
+<meta name="twitter:description" content="原创声明：本文属于原创总结，部分文字摘自网络，已标署名，转载请附上转载链接。http://notes.zhaoshuai123.com
+
+目前来看，原生安卓开发即将走到了尽头，除了视频直播类和即时通讯类等App之外，基本市面上其他类型的App都可以使用纯web或者HyBrid的方式去替代了，比如Facebook出的React Native.而最近的微信小程序更是将原生安卓开发逼向死路，毕竟微信小程">
+<meta name="twitter:image" content="http://ocalhyke7.bkt.clouddn.com/Video-broadcast-technology.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6219980248432248000,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/17/视频直播类App研究总结/"/>
+
+  <title> 视频直播类App研究总结 | 程序员Patrick_Zhao </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?7eef02482ad788ec5c9658901ec8e5b3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">程序员Patrick_Zhao</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                视频直播类App研究总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-17T14:15:13+08:00" content="2016-10-17">
+              2016-10-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/17/视频直播类App研究总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/17/视频直播类App研究总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>原创声明：本文属于原创总结，部分文字摘自网络，已标署名，转载请附上转载链接。<br><a href="http://notes.zhaoshuai123.com" target="_blank" rel="external">http://notes.zhaoshuai123.com</a></p>
+<blockquote>
+<p>目前来看，原生安卓开发即将走到了尽头，除了视频直播类和即时通讯类等App之外，基本市面上其他类型的App都可以使用纯web或者HyBrid的方式去替代了，比如Facebook出的React Native.而最近的微信小程序更是将原生安卓开发逼向死路，毕竟微信小程序如果做起来之后，开发者们就不需要考虑平台了，对于创业型公司来说开发成本更低了，只要是能够运行微信的手机，写一套微信小程序，就可以在安卓和IOS上运行了，根本不需要考虑兼容性。经过我几天的开发使用发现，目前微信小程序还有很多需要修复的地方，现有组件比较少，支持的功能也不多，导致开发的可能性降低。但是总而言之，作为一名安卓开发人员，在未来的几年，如果你还不会前端web，可能很快就会被市场所淘汰。</p>
+</blockquote>
+<h1 id="直播技术大纲图解"><a href="#直播技术大纲图解" class="headerlink" title="直播技术大纲图解"></a>直播技术大纲图解</h1><p><img src="http://ocalhyke7.bkt.clouddn.com/Video-broadcast-technology.jpg" alt=""></p>
+<blockquote>
+<p>视频直播也是一个比较坑的领域，小公司根本玩不起来，以2w人同时在线来看，手机码率如果在600Kb，电脑的码率在1M，基本可以算是高清了，那么每月的带宽费用就至少在30万，再加上你还需要有足够强的技术团队，渠道成本等。今年的UGC（user-generated Content）为主的内容生产方式的移动直播，确实火了一部分直播类公司，但是这种情况，一年内将会慢慢淡下来。本文是笔者在学习过程中，发现一些比较具体的文章，整理总结出来，足够想要快速了解视频直播技术的人去学习了。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="媒体模块"><a href="#媒体模块" class="headerlink" title="媒体模块"></a>媒体模块</h2><p><img src="http://ocalhyke7.bkt.clouddn.com/f3e6cde80a7b16bf12f4092a8d64d269_b.png" alt=""></p>
+<pre><code>流媒体知识：流媒体开发:网络层(socket或st)负责传输，协议层(rtmp或hls)负责网络打包，封装层(flv、
+ts)负责编解码数据的封装，编码层(h.264和aac)负责图像，音频压缩。
+帧:每帧代表一幅静止的图像
+GOP:（Group of Pictures）画面组，一个GOP就是一组连续的画面，每个画面都是一帧，一个GOP就是很多帧的集合
+直播的数据，其实是一组图片，包括I帧、P帧、B帧，当用户第一次观看的时候，会寻找I帧，而播放器会到服务器寻找到最近的I帧反馈给用户。因此，GOP Cache增加了端到端延迟，因为它必须要拿到最近的I帧
+GOP Cache的长度越长，画面质量越好
+
+码率：图片进行压缩后每秒显示的数据量。
+帧率：每秒显示的图片数。影响画面流畅度，与画面流畅度成正比：帧率越大，画面越流畅；帧率越小，画面越有跳动感。
+由于人类眼睛的特殊生理结构，如果所看画面之帧率高于16的时候，就会认为是连贯的，此现象称之为视觉暂留。并且当帧速达到一定数值后，再增长的话，人眼也不容易察觉到有明显的流畅度提升了。
+分辨率：(矩形)图片的长度和宽度，即图片的尺寸
+压缩前的每秒数据量:帧率X分辨率(单位应该是若干个字节)
+压缩比:压缩前的每秒数据量/码率 （对于同一个视频源并采用同一种视频编码算法，则：压缩比越高，画面质量越差。）　
+
+视频文件格式：文件的后缀，比如.wmv,.mov,.mp4,.mp3,.avi,
+主要用处，根据文件格式，系统会自动判断用什么软件打开,
+注意: 随意修改文件格式，对文件的本身不会造成太大的影响，比如把avi改成mp4,文件还是avi.
+
+视频封装格式：一种储存视频信息的容器，流式封装可以有TS、FLV等，索引式的封装有MP4,MOV,AVI等，
+主要作用：一个视频文件往往会包含图像和音频，还有一些配置信息(如图像和音频的关联，如何解码它们等)：这些内容需要按照一定的规则组织、封装起来.
+注意：会发现封装格式跟文件格式一样，因为一般视频文件格式的后缀名即采用相应的视频封装格式的名称,所以视频文件格式就是视频封装格式。
+视频封装格式和视频压缩编码标准：就好像项目工程和编程语言，封装格式就是一个项目的工程，视频编码方式就是编程语言，一个项目工程可以用不同语言开发。
+</code></pre><p><img src="http://ocalhyke7.bkt.clouddn.com/%E7%9B%B4%E6%92%AD%E6%95%B4%E4%BD%93%E6%B5%81.png" alt=""></p>
+<h3 id="采集"><a href="#采集" class="headerlink" title="采集"></a>采集</h3><p><img src="http://ocalhyke7.bkt.clouddn.com/caiji.jpg" alt=""><br>采集是整个视频推流过程中的第一个环节，它从系统的采集设备中获取原始视频数据，将其输出到下一个环节。视频的采集涉及两方面数据的采集：音频采集和图像采集，它们分别对应两种完全不同的输入源和数据格式。其中,图像采集数据一般采用RGB或YUV格式、音频采样数据一般采用PCM格式。对于采集到的原始音视频的体积是非常大的，因此需要经过压缩技术来处理，降低视频的大小来提示传输效率。 在手机视频采集方面，iOS系统在硬件的兼容性方面做得比较好，系统本身提供了比较完整的视频采集的接口，使用起来也比较简单。但是，Android系统就比较麻烦了，千奇百怪的机型都有，适配起来非常难。PC最麻烦各种奇葩摄像头驱动，出了问题特别不好处理。下面是音频采集和图像采集的一些定义，如果懒得看了，就直接用框架，毕竟有现成的轮子，稍后会介绍到.  此部分多数摘自<a href="http://www.jianshu.com/users/342c4dafa482/latest_articles" target="_blank" rel="external">七牛云简书博客</a></p>
+<h4 id="概念知识"><a href="#概念知识" class="headerlink" title="概念知识"></a>概念知识</h4><ol>
+<li><p>音频采集</p>
+<p> 音频数据既能与图像结合组合成视频数据，也能以纯音频的方式采集播放，后者在很多成熟的应用场景如在线电台和语音电台等起着非常重要的作用。音频的采集过程主要通过设备将环境中的模拟信号采集成 PCM 编码的原始数据，然后编码压缩成 MP3 等格式的数据分发出去。常见的音频压缩格式有：MP3，AAC，OGG，WMA，Opus，FLAC，APE，m4a 和 AMR 等。</p>
+<p> 音频采集和编码主要面临的挑战在于：延时敏感、卡顿敏感、噪声消除（Denoise）、回声消除（AEC）、静音检测（VAD）和各种混音算法等。</p>
+<p> 在音频采集阶段，参考的主要技术参数有 ：</p>
+<p> 采样率（samplerate）：采样就是把模拟信号数字化的过程，采样频率越高，记录这一段音频信号所用的数据量就越大，同时音频质量也就越高。</p>
+<p> 位宽：每一个采样点都需要用一个数值来表示大小，这个数值的数据类型大小可以是：4bit、8bit、16bit、32bit 等等，位数越多，表示得就越精细，声音质量自然就越好，而数据量也会成倍增大。我们在音频采样过程中常用的位宽是 8bit 或者 16bit。</p>
+<p> 声道数（channels）：由于音频的采集和播放是可以叠加的，因此，可以同时从多个音频源采集声音，并分别输出到不同的扬声器，故声道数一般表示声音录制时的音源数量或回放时相应的扬声器数量。声道数为 1 和 2 分别称为单声道和双声道，是比较常见的声道参数。</p>
+<p> 音频帧（frame）：音频跟视频很不一样，视频每一帧就是一张图像，而从上面的正玄波可以看出，音频数据是流式的，本身没有明确的一帧帧的概念，在实际的应用中，为了音频算法处理/传输的方便，一般约定俗成取 2.5ms~60ms 为单位的数据量为一帧音频。这个时间被称之为“采样时间”，其长度没有特别的标准，它是根据编解码器和具体应用的需求来决定的。</p>
+<p> 根据以上定义，我们可以计算一下一帧音频帧的大小。假设某音频信号是采样率为 8kHz、双通道、位宽为 16bit，20ms 一帧，则一帧音频数据的大小为：<br> size = 8000 x 2 x 16bit x 0.02s = 5120 bit = 640 byte</p>
+</li>
+<li><p>图像采集</p>
+<p> 图像采集的图片结果组合成一组连续播放的动画，即构成视频中可肉眼观看的内容。图像的采集过程主要由摄像头等设备拍摄成 YUV 编码的原始数据，然后经过编码压缩成 H.264 等格式的数据分发出去。常见的视频封装格式有：MP4、3GP、AVI、MKV、WMV、MPG、VOB、FLV、SWF、MOV、RMVB 和 WebM 等。</p>
+<p> 图像由于其直观感受最强并且体积也比较大，构成了一个视频内容的主要部分。图像采集和编码面临的主要挑战在于：设备兼容性差、延时敏感、卡顿敏感以及各种对图像的处理操作如美颜和水印等。</p>
+<p> 在图像采集阶段，参考的主要技术参数有：</p>
+<p> 图像传输格式：通用影像传输格式（Common Intermediate Format）是视讯会议（video conference）中常使用的影像传输格式。</p>
+<p> 图像格式：通常采用 YUV 格式存储原始数据信息，其中包含用 8 位表示的黑白图像灰度值，以及可由 RGB 三种色彩组合成的彩色图像。</p>
+<p> 传输通道：正常情况下视频的拍摄只需 1 路通道，随着 VR 和 AR 技术的日渐成熟，为了拍摄一个完整的 360° 视频，可能需要通过不同角度拍摄，然后经过多通道传输后合成。</p>
+<p> 分辨率：随着设备屏幕尺寸的日益增多，视频采集过程中原始视频分辨率起着越来越重要的作用，后续处理环节中使用的所有视频分辨率的定义都以原始视频分辨率为基础。视频采集卡能支持的最大点阵反映了其分辨率的性能。</p>
+<p> 采样频率：采样频率反映了采集卡处理图像的速度和能力。在进行高度图像采集时，需要注意采集卡的采样频率是否满足要求。采样率越高，图像质量越高，同时保存这些图像信息的数据量也越大。</p>
+<p> 以上，构成了一个视频采集的主要技术参数，以及视频中音频和图像编码的常用格式。而对于直播 App 开发者来说，了解这些细节虽然更有帮助，但实际开发过程中可能很少能够关注采集环节中技术参数的控制，而是直接在 SDK 中将采集后的数据传递给下一个「处理」和「编码」环节。</p>
+</li>
+</ol>
+<h4 id="现有主流解决方式或者框架"><a href="#现有主流解决方式或者框架" class="headerlink" title="现有主流解决方式或者框架"></a>现有主流解决方式或者框架</h4><p>IOS: 【<a href="https://github.com/tdginternet/TGCameraViewController" target="_blank" rel="external">AVFoundation</a>】是用来播放和创建实时的视听媒体数据的框架，同时提供Objective-C接口来操作这些视听数据，比如编辑，旋转，重编码。<br>    【<a href="https://github.com/jgh-/VideoCore" target="_blank" rel="external">VideoCore</a>】</p>
+<p>PC:【<a href="https://obsproject.com/" target="_blank" rel="external">OBS</a>】市面上最好的PC开源免费软件</p>
+<p>Android:【无】/(ㄒoㄒ)/~~ 好桑心啊…安卓的适配问题，目前还没找到一个库能够全部兼容的，基本上各个公司都是自己手动去做兼容性，国内有开源的流媒体平台<a href="https://github.com/EasyDarwin/EasyDarwin" target="_blank" rel="external">EasyDarwin</a>，，也可以自己去研究<a href="http://ffmpeg.org/" target="_blank" rel="external">FFmpeg</a> 这个巨无霸了，也可以自力更生，熟悉 C / C++、JNI / NDK ，这个安卓解决方案同样适用于下面的部分.还有就是使用安卓本身自带的类去完成，后续你需要给完成其他的功能.(采集更推荐这种)<a href="http://blog.csdn.net/jiangwei0910410003/article/details/51871358" target="_blank" rel="external">参考博客</a></p>
+<h3 id="前处理"><a href="#前处理" class="headerlink" title="前处理"></a>前处理</h3><p><img src="http://ocalhyke7.bkt.clouddn.com/qianchuli.png" alt=""></p>
+<h4 id="概念知识-1"><a href="#概念知识-1" class="headerlink" title="概念知识"></a>概念知识</h4><p>在这个环节主要处理美颜、水印、模糊等效果。特别是美颜功能几乎是直播的标配功能，没有美颜的直播主播们根本提不起兴趣。我们见过太多case是因为没有美颜功能被抛弃使用的。另外国家明确提出了，所有直播都必须打有水印并回放留存15天以上。所以，没有美颜和水印功能基本就可以选择放弃了。</p>
+<p>美颜算法需要用到GPU编程，需要懂图像处理算法的人，没有好的开源实现，要自己参考论文去研究.实际上是通过算法去识别图像中的皮肤部分，再对皮肤区域进行色值调整。通常情况下人的肤色与周边环境色调存在较大差异，通过颜色对比，找到皮肤的基本轮廓，进一步进行肤色检查还可以确定人脸范围。找到了皮肤的区域，可以进行色值调整、添加白色图层或调整透明度等来等来达到美白效果。美颜除了美白效果还需要磨皮功能，磨皮实际上就是用模糊滤镜实现的。滤镜有很多种，如高斯滤波，双边滤波，导向滤波，到底选择什么样的模糊滤镜各家也有自己的喜好。</p>
+<h4 id="现有主流解决方式或者框架-1"><a href="#现有主流解决方式或者框架-1" class="headerlink" title="现有主流解决方式或者框架"></a>现有主流解决方式或者框架</h4><p>在美颜处理方面，最著名的GPUImage提供了丰富的效果，同时可以支持IOS和Android，还支持自己写算法实现自己最理性的效果。GPUImage本事内置了120多种常见滤镜效果，添加滤镜只需要简单调用几行代码就可以了，比如大家可以试试使用GPUImageBilateralFiter的双边滤波滤镜来处理基本的磨皮效果，想要实现更理想的效果还是要通过自定义算法去实现的，各家也都有自己一套算法。</p>
+<p>安卓：<a href="https://github.com/CyberAgent/android-gpuimage" target="_blank" rel="external">GPUImage</a>,谷歌开源的<a href="https://github.com/google/grafika" target="_blank" rel="external">grafika</a>，</p>
+<p>IOS: <a href="https://github.com/BradLarson/GPUImage" target="_blank" rel="external">GPUImage</a></p>
+<h3 id="编码与封装"><a href="#编码与封装" class="headerlink" title="编码与封装"></a>编码与封装</h3><p>####概念知识</p>
+<ol>
+<li><p>视频为什么要进行编码？</p>
+<ul>
+<li>原始视频数据存储空间大，一个 1080P 的 7 s 视频需要 817 MB</li>
+<li><p>原始视频数据传输占用带宽大，10 Mbps 的带宽传输上述 7 s 视频需要 11 分钟</p>
+<p>而经过 H.264 编码压缩之后，视频大小只有 708 k ,10 Mbps 的带宽仅仅需要 500 ms ，可以满足实时传输的需求，所以从视频采集传感器采集来的原始视频势必要经过视频编码。</p>
+</li>
+</ul>
+</li>
+<li><p>基本原理</p>
+<p> 那为什么巨大的原始视频可以编码成很小的视频呢？这其中的技术是什么呢？<br> 核心思想就是去除冗余信息：</p>
+<ul>
+<li>空间冗余：图像相邻像素之间有较强的相关性</li>
+<li>时间冗余：视频序列的相邻图像之间内容相似</li>
+<li>编码冗余：不同像素值出现的概率不同</li>
+<li>视觉冗余：人的视觉系统对某些细节不敏感</li>
+<li><p>知识冗余：规律性的结构可由先验知识和背景知识得到</p>
+<p>视频本质上讲是一系列图片连续快速的播放，最简单的压缩方式就是对每一帧图片进行压缩，例如比较古老的 MJPEG 编码就是这种编码方式，这种编码方式只有帧内编码，利用空间上的取样预测来编码。形象的比喻就是把每帧都作为一张图片，采用 JPEG 的编码格式对图片进行压缩，这种编码只考虑了一张图片内的冗余信息压缩<br><img src="http://ocalhyke7.bkt.clouddn.com/311249-6cd0b2567a15818d.jpg" alt=""><img src="http://ocalhyke7.bkt.clouddn.com/311249-423cc0c0fe1976db.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>视频编码技术 </p>
+<p> 视频压缩编码标准：对视频进行压缩(视频编码)或者解压缩（视频解码）的编码技术,比如MPEG，H.264,这些视频编码技术是压缩编码视频的,在编码方面的核心是平衡分辨率、码率、帧率、GOP（Group of Pictures）使得体积与画质达到最优，参数组合为技术核心，也是个家的商业机密。</p>
+<p> 主要作用:是将视频像素数据压缩成为视频码流，从而降低视频的数据量。如果视频不经过压缩编码的话，体积通常是非常大的，一部电影可能就要上百G的空间。</p>
+<p> 注意:最影响视频质量的是其视频编码数据和音频编码数据，跟封装格式没有多大关系</p>
+<p> MPEG:一种视频压缩方式，它采用了帧间压缩，仅存储连续帧之间有差别的地方 ，从而达到较大的压缩比<br> H.264/AVC:一种视频压缩方式,采用事先预测和与MPEG中的P-B帧一样的帧预测方法压缩，它可以根据需要产生适合网络情况传输的视频流,还有更高的压缩比，有更好的图象质量</p>
+<pre><code>注意1:如果是从单个画面清晰度比较，MPEG4有优势；从动作连贯性上的清晰度，H.264有优势
+
+注意2:由于264的算法更加复杂，程序实现烦琐，运行它需要更多的处理器和内存资源。因此，运行264对系统要求是比较高的。
+
+注意3:由于264的实现更加灵活，它把一些实现留给了厂商自己去实现，虽然这样给实现带来了很多好处，但是不
+同产品之间互通成了很大的问题，造成了通过A公司的编码器编出的数据，必须通过A公司的解码器去解这样尴尬的事情
+</code></pre><p> H.265/HEVC:一种视频压缩方式,基于H.264，保留原来的某些技术，同时对一些相关的技术加以改进，以改善码流、编码质量、延时和算法复杂度之间的关系，达到最优化设置。</p>
+<p> H.265 是一种更为高效的编码标准，能够在同等画质效果下将内容的体积压缩得更小，传输时更快更省带宽</p>
+<p> I帧:(关键帧)保留一副完整的画面，解码时只需要本帧数据就可以完成（因为包含完整画面）</p>
+<p> P帧:(差别帧)保留这一帧跟之前帧的差别，解码时需要用之前缓存的画面叠加上本帧定义的差别，生成最终画面。（P帧没有完整画面数据，只有与前一帧的画面差别的数据）</p>
+<p> B帧:(双向差别帧)保留的是本帧与前后帧的差别，解码B帧，不仅要取得之前的缓存画面，还要解码之后的画面，通过前后画面的与本帧数据的叠加取得最终的画面。B帧压缩率高，但是解码时CPU会比较累</p>
+<p> 帧内（Intraframe）压缩:当压缩一帧图像时，仅考虑本帧的数据而不考虑相邻帧之间的冗余信息,帧内一般采用有损压缩算法</p>
+<p> 帧间（Interframe）压缩:时间压缩（Temporal compression），它通过比较时间轴上不同帧之间的数据进行压缩。帧间压缩一般是无损的</p>
+<p> muxing（合成）：将视频流、音频流甚至是字幕流封装到一个文件中(容器格式（FLV，TS）)，作为一个信号进行传输。</p>
+</li>
+<li><p>音频编码技术 </p>
+<p> AAC，mp3：这些属于音频编码技术,压缩音频用</p>
+</li>
+<li><p>码率控制 </p>
+<p> 多码率:观众所处的网络情况是非常复杂的，有可能是WiFi，有可能4G、3G、甚至2G，那么怎么满足多方需求呢？多搞几条线路，根据当前网络环境自定义码率。</p>
+<p> 列如：常常看见视频播放软件中的1024，720，高清，标清，流畅等，指的就是各种码率。</p>
+</li>
+<li><p>视频封装格式 </p>
+<p> TS : 一种流媒体封装格式，流媒体封装有一个好处，就是不需要加载索引再播放，大大减少了首次载入的延迟，如果片子比较长，mp4文件的索引相当大，影响用户体验 (HLS协议)</p>
+<p> 为什么要用TS:这是因为两个TS片段可以无缝拼接，播放器能连续播放<br> FLV: 一种流媒体封装        FLV: 一种流媒体封装格式,由于它形成的文件极小、加载速度极快，使得网络观看视频文件成为可能,因此FLV格式成为了当今主流视频格式  (RTMP/HTTP-FLV协议)</p>
+<h4 id="现有主流解决方式或者框架-2"><a href="#现有主流解决方式或者框架-2" class="headerlink" title="现有主流解决方式或者框架"></a>现有主流解决方式或者框架</h4><p>行编码，如显卡GPU、专用的DSP、FPGA、ASIC芯片等，性能高，低码率下通常质量低于硬编码器，但部分产品在GPU硬件平台移植了优秀的软编码算法（如X264）的，质量基本等同于软编码。</p>
+<blockquote>
+<p>软编码：使用CPU进行编码，实现直接、简单，参数调整方便，升级易，但CPU负载重，性能较硬编码低，低码率下质量通常比硬编码要好一点。</p>
+</blockquote>
+</li>
+</ol>
+<p>现在基本都是会采用硬编码的方式，IOS比较好做，安卓端由于碎片化严重，所以需要处理硬件兼容性问题或者使用软编码。美拍，映客，花椒等App安卓端都是采用软编码解决.</p>
+<p>安卓: 未完..待续….</p>
+<blockquote>
+<p>声明： 此文断更，由于笔者发现网上此类文章已经很多，而且大多数的都是与笔者差不多，基本都是别人总结好的，自己整理总结的。此类文章有个共同特点，就是说的比较大，只能给开发者一些理论逻辑上的认识，并不能给出实质性的解决方式，每一个环节如果真的要开发的话，会有很多的技术难点需要解决，所以此文也就没有更新的必要性了。</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/安卓开发/" rel="tag">#安卓开发</a>
+          
+            <a href="/tags/音视频直播/" rel="tag">#音视频直播</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/02/个人安卓学习进阶知识点/" rel="next" title="个人安卓学习进阶知识点">
+                <i class="fa fa-chevron-left"></i> 个人安卓学习进阶知识点
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/21/看完这篇，webview就彻底会用了/" rel="prev" title="看完这篇，webview就彻底会用了.">
+                看完这篇，webview就彻底会用了. <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/17/视频直播类App研究总结/"
+           data-title="视频直播类App研究总结" data-url="http://yoursite.com/2016/10/17/视频直播类App研究总结/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ocalhyke7.bkt.clouddn.com/IMG_2037%2820161116-094615%29.jpg"
+               alt="Patrick_Zhao" />
+          <p class="site-author-name" itemprop="name">Patrick_Zhao</p>
+          <p class="site-description motion-element" itemprop="description">不卑不亢,不骄不躁,不气不馁</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#直播技术大纲图解"><span class="nav-number">1.</span> <span class="nav-text">直播技术大纲图解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#媒体模块"><span class="nav-number">1.1.</span> <span class="nav-text">媒体模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#采集"><span class="nav-number">1.1.1.</span> <span class="nav-text">采集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念知识"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">概念知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现有主流解决方式或者框架"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">现有主流解决方式或者框架</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前处理"><span class="nav-number">1.1.2.</span> <span class="nav-text">前处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念知识-1"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">概念知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现有主流解决方式或者框架-1"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">现有主流解决方式或者框架</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编码与封装"><span class="nav-number">1.1.3.</span> <span class="nav-text">编码与封装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#现有主流解决方式或者框架-2"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">现有主流解决方式或者框架</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick_Zhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"noteszhaoshuai123"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
